@@ -1,0 +1,99 @@
+{% extends 'layout/app.html' %}
+
+{% load static %}
+
+{% block css %}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/extra-libs/multicheck/multicheck.css' %}">
+    <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Data Log</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Portal</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Data Log</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="zero_config" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Index</th>
+                            <th>EXG Channel 0</th>
+                            <th>EXG Channel 1</th>
+                            <th>EXG Channel 2</th>
+                            <th>EXG Channel 3</th>
+                            <th>EXG Channel 4</th>
+                            <th>EXG Channel 5</th>
+                            <th>EXG Channel 6</th>
+                            <th>EXG Channel 7</th>
+                            <th>Accel Channel 0</th>
+                            <th>Accel Channel 1</th>
+                            <th>Accel Channel 2</th>
+                            <th>Other</th>
+                            <th>Other</th>
+                            <th>Other</th>
+                            <th>Other</th>
+                            <th>Other</th>
+                            <th>Other</th>
+                            <th>Other</th>
+                            <th>Analog Channel 0</th>
+                            <th>Analog Channel 1</th>
+                            <th>Analog Channel 2</th>
+                            <th>Timestamp</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for data in data_array %}
+                            <tr>
+                                {% for column in data %}
+                                    <td>{{ column }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'datalogger.logDelete' %}" class="btn btn-danger btn-block mb-2">Delete All Data</a>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+{% endblock %}
+
+{% block script %}
+    <!-- this page js -->
+    <script src="{% static 'assets/extra-libs/multicheck/datatable-checkbox-init.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/multicheck/jquery.multicheck.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/DataTables/datatables.min.js' %}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+{% endblock %}

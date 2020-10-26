@@ -1,0 +1,81 @@
+{% extends 'layout/app.html' %}
+
+{% load static %}
+
+{% block css %}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/extra-libs/multicheck/multicheck.css' %}">
+    <link href="{% static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Portal</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Select Excel File</h5>
+                <form action="" method="post" id="excelForm" enctype="multipart/form-data" onsubmit="formSubmit()">
+                    {% csrf_token %}
+                    <div class="custom-file mb-3">
+                        {{ excel_form.excel }}
+                        <label class="custom-file-label" for="validatedCustomFile">Choose
+                            file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-success btn-block">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+{% endblock %}
+
+{% block script %}
+    <!-- this page js -->
+    <script src="{% static 'assets/extra-libs/multicheck/datatable-checkbox-init.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/multicheck/jquery.multicheck.js' %}"></script>
+    <script src="{% static 'assets/extra-libs/DataTables/datatables.min.js' %}"></script>
+    <script>
+        /****************************************
+         *       Basic Table                   *
+         ****************************************/
+        $('#zero_config').DataTable();
+    </script>
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+        function formSubmit() {
+            $("#submitBtn").attr('disabled', true);
+            $("#submitBtn").html("Processing. Please wait...");
+        }
+    </script>
+{% endblock %}
