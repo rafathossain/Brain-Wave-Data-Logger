@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '-bw-04hqec^k7g_aaip_*@09$cnl1j8&$5hy&3&iirgqr*gjqy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -72,17 +72,30 @@ WSGI_APPLICATION = 'Brain_Wave_Data_Logger.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    # localhost configuration
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'brainwave_datalogger',
-        'HOST': '127.0.0.1',
-        'PORT': '8889',
-        'USER': 'root',
-        'PASSWORD': 'root'
+if DEBUG:
+    DATABASES = {
+        # localhost configuration
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'brainwave_datalogger',
+            'HOST': '127.0.0.1',
+            'PORT': '8889',
+            'USER': 'root',
+            'PASSWORD': 'root'
+        }
     }
-}
+else:
+    DATABASES = {
+        # production configuration
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'brai_datalogger',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'USER': 'brai_datalogger',
+            'PASSWORD': 'brai_datalogger'
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -126,3 +139,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+
+if not DEBUG:
+    STATIC_ROOT = "/home/brainwavelog.rafat.me/public_html/public/static/"
