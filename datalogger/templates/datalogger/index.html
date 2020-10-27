@@ -34,21 +34,21 @@
     <!-- Container fluid  -->
     <!-- ============================================================== -->
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Select Excel File</h5>
-                <form action="" method="post" id="excelForm" enctype="multipart/form-data" onsubmit="formSubmit()">
-                    {% csrf_token %}
-                    <div class="custom-file mb-3">
-                        {{ excel_form.excel }}
-                        <label class="custom-file-label" for="validatedCustomFile">Choose
-                            file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
-                    </div>
-                    <button type="submit" id="submitBtn" class="btn btn-success btn-block">Upload</button>
-                </form>
-            </div>
-        </div>
+{#        <div class="card">#}
+{#            <div class="card-body">#}
+{#                <h5 class="card-title">Select Excel File</h5>#}
+{#                <form action="" method="post" id="excelForm" enctype="multipart/form-data" onsubmit="formSubmit()">#}
+{#                    {% csrf_token %}#}
+{#                    <div class="custom-file mb-3">#}
+{#                        {{ excel_form.excel }}#}
+{#                        <label class="custom-file-label" for="validatedCustomFile">Choose#}
+{#                            file...</label>#}
+{#                        <div class="invalid-feedback">Example invalid custom file feedback</div>#}
+{#                    </div>#}
+{#                    <button type="submit" id="submitBtn" class="btn btn-success btn-block">Upload</button>#}
+{#                </form>#}
+{#            </div>#}
+{#        </div>#}
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
