@@ -21,9 +21,9 @@ urlpatterns = [
     path('', include('datalogger.urls')),
 ]
 
-if not settings.DEBUG:
-    urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    ]
-else:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if not settings.DEBUG:
+#     urlpatterns += [
+#         url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+#     ]
+# else:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
