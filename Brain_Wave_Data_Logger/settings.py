@@ -77,11 +77,11 @@ if DEBUG:
         # localhost configuration
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'brainwave_datalogger',
-            'HOST': '127.0.0.1',
-            'PORT': '8889',
-            'USER': 'root',
-            'PASSWORD': 'root'
+            'NAME': 'brai_datalogger',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'USER': 'brai_datalogger',
+            'PASSWORD': 'brai_datalogger'
         }
     }
 else:
