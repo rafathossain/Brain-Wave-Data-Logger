@@ -141,4 +141,4 @@ STATICFILES_DIRS = [
 ]
 
 if not DEBUG:
-    STATIC_ROOT = "/home/brainwavelog.rafat.me/public_html/public/static/"
+    STATIC_ROOT = os.path.join(BASE_DIR, 'public/static')
