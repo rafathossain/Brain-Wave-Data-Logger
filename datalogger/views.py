@@ -70,10 +70,10 @@ def log(request):
 
 
 def logData(request):
-    search_value = request.GET['search[value]'].strip()
+    search_value = request.POST['search[value]'].strip()
     print(search_value)
-    startLimit = int(request.GET['start'])
-    endLimit = startLimit + int(request.GET['length'])
+    startLimit = int(request.POST['start'])
+    endLimit = startLimit + int(request.POST['length'])
     range_list = []
     for i in range(startLimit+1, endLimit+1):
         range_list.append(i)
@@ -119,7 +119,7 @@ def logData(request):
     #     data_array.append(row_array)
 
     response = {
-        "draw": request.GET['draw'],
+        "draw": request.POST['draw'],
         "recordsTotal": totalLength,
         "recordsFiltered": filterLength,
         "data": data_array
