@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-{#        <a href="{% url 'datalogger.logDelete' %}" class="btn btn-danger btn-block mb-2">Delete All Data</a>#}
+        {#        <a href="{% url 'datalogger.logDelete' %}" class="btn btn-danger btn-block mb-2">Delete All Data</a>#}
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
@@ -101,6 +101,7 @@
         {#$('#zero_config').DataTable();#}
     </script>
     <script>
+        let token = '{{csrf_token}}';
         $(document).ready(function () {
             $('#zero_config').DataTable({
                 scrollCollapse: true,
@@ -112,7 +113,11 @@
                     {#{orderable: true, className: 'reorder', targets: 3},#}
                     {orderable: false, targets: '_all'}
                 ],
-                ajax: '{% url 'datalogger.logData' %}',
+                ajax: {
+                    headers: {"X-CSRFToken": token},
+                    url: '{% url 'datalogger.logData' %}',
+                    type: "POST"
+                },
             });
         });
     </script>
