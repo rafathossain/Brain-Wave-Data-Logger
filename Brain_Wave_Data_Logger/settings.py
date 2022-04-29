@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '-bw-04hqec^k7g_aaip_*@09$cnl1j8&$5hy&3&iirgqr*gjqy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -136,3 +138,18 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_ROOT = os.path.join(BASE_DIR, 'public/static')
+
+if not DEBUG:
+    sentry_sdk.init(
+        dsn="https://bb8f9130f7e1420b83cbb282c31812f3@o1225589.ingest.sentry.io/6371159",
+        integrations=[DjangoIntegration()],
+
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=1.0,
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
