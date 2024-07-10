@@ -8,7 +8,7 @@ try:
     mydb = mysql.connector.connect(
         host="${DB_HOST}",
         user="${DB_USER}",
-        password="${DB_PASS}",
+        password="${DB_PASSWORD}",
         port="${DB_PORT}"
     )
 except mysql.connector.OperationalError:
