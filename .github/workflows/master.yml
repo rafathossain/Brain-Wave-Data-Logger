@@ -28,7 +28,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           command_timeout: 30m
           script: |
-            cd /home/docker_projects/Metrovps-Website
+            cd /home/docker_projects/Brain-Wave-Data-Logger
             git stash
             git pull origin master
             chmod +x deployment/*
