@@ -11,21 +11,30 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-bw-04hqec^k7g_aaip_*@09$cnl1j8&$5hy&3&iirgqr*gjqy'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -74,30 +83,17 @@ WSGI_APPLICATION = 'Brain_Wave_Data_Logger.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        # localhost configuration
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'brai_datalogger',
-            'HOST': 'localhost',
-            'PORT': '3306',
-            'USER': 'brai_datalogger',
-            'PASSWORD': 'brai_datalogger'
-        }
+DATABASES = {
+    # localhost configuration
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env('DB_NAME'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
     }
-else:
-    DATABASES = {
-        # production configuration
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'brai_datalogger',
-            'HOST': 'localhost',
-            'PORT': '3306',
-            'USER': 'brai_datalogger',
-            'PASSWORD': 'brai_datalogger'
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -137,19 +133,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-STATIC_ROOT = os.path.join(BASE_DIR, 'public/static')
-
-if not DEBUG:
-    sentry_sdk.init(
-        dsn="https://bb8f9130f7e1420b83cbb282c31812f3@o1225589.ingest.sentry.io/6371159",
-        integrations=[DjangoIntegration()],
-
-        # Set traces_sample_rate to 1.0 to capture 100%
-        # of transactions for performance monitoring.
-        # We recommend adjusting this value in production.
-        traces_sample_rate=1.0,
-
-        # If you wish to associate users to errors (assuming you are using
-        # django.contrib.auth) you may enable sending PII data.
-        send_default_pii=True
-    )
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
